@@ -24,7 +24,7 @@ class pyopenkeyval(object):
         self.store(key, value)
 
     def __delitem__(self, key):
-        self.store(key, "")
+        self.store(key, '')
 
     def store(self, key, value):
         data = urllib.urlencode({'data': value})
