@@ -23,6 +23,9 @@ class pyopenkeyval(object):
     def __setitem__(self, key, value):
         self.store(key, value)
 
+    def __delitem__(self, key):
+        self.store(key, "")
+
     def store(self, key, value):
         data = urllib.urlencode({'data': value})
         result = urllib2.urlopen(self._api_url % key, data).read()
