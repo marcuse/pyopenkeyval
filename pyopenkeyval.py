@@ -67,6 +67,11 @@ class pyopenkeyval(object):
         """Removes all cached values regardless of expiration time."""
         self._cache = {}
 
+    def key_info(self, key):
+        """Fetch meta information regarding the specified `key`."""
+        result = urllib2.urlopen((self._api_url % key) + '?key_info').read()
+        return json.loads(result)
+
     def _update_cache(self, key, value):
         if self._cache_time:
             self._cache[key] = (value, time.time())
