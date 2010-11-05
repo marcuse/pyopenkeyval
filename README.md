@@ -21,7 +21,7 @@ If you need the result from storing a value, use the `store()` method instead:
 To check if a key has a value, use the `in` keyword. Note that this will also
 cache the value if caching is activated.
 
-    if 'example' in p:
+    if 'example' in okv:
          ...
 
 ### Deleting keys
