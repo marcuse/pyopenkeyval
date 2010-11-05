@@ -57,6 +57,13 @@ class pyopenkeyval(object):
     def __delitem__(self, key):
         self.store(key, '')
 
+    def __contains__(self, key):
+        try:
+            self[key]
+            return True
+        except KeyError:
+            return False
+
     def store(self, key, value):
         """Stores `value` on `key`, returns a dict of the parsed JSON response."""
         data = urllib.urlencode({'data': value})

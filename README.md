@@ -18,6 +18,12 @@ If you need the result from storing a value, use the `store()` method instead:
     result = okv.store('example', 'Hello, online key/value storage!')
     print result['read_only_key']
 
+To check if a key has a value, use the `in` keyword. Note that this will also
+cache the value if caching is activated.
+
+    if 'example' in p:
+         ...
+
 ### Deleting keys
 To delete a key, either set its value to '' or use the `del` keyword:
 
