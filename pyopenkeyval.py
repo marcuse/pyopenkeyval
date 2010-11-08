@@ -49,12 +49,10 @@ class pyopenkeyval(object):
 
     def __setitem__(self, key, value):
         self._expire_cache()
-        if self._cache_time:
-            if self._cache.has_key(key):
-                del self._cache[key]
         self.store(key, value)
 
     def __delitem__(self, key):
+        self._remove_cache(key)
         self.store(key, '')
 
     def __contains__(self, key):
@@ -66,6 +64,7 @@ class pyopenkeyval(object):
 
     def store(self, key, value):
         """Stores `value` on `key`, returns a dict of the parsed JSON response."""
+        self._remove_cache(key)
         data = urllib.urlencode({'data': value})
         result = urllib2.urlopen(self._api_url % key, data).read()
         return json.loads(result)
@@ -82,6 +81,10 @@ class pyopenkeyval(object):
     def _update_cache(self, key, value):
         if self._cache_time:
             self._cache[key] = (value, time.time())
+
+    def _remove_cache(self, key):
+        if self._cache_time and self._cache.has_key(key):
+            del self._cache[key]
 
     def _expire_cache(self):
         if self._cache_time:
