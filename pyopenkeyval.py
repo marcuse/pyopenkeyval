@@ -9,14 +9,13 @@ Website: http://github.com/marcuse/pyopenkeyval
 """
 
 import time
-import urllib
-import urllib2
+import urllib, urllib2
 try:
     import json
 except ImportError:
     import simplejson as json
 
-__version__ = '0.2'
+__version__ = '0.3'
 
 class pyopenkeyval(object):
     """A dict-like object that can read and write values to keys stored on OpenKeyval.org"""
@@ -35,7 +34,7 @@ class pyopenkeyval(object):
     def __getitem__(self, key):
         self._expire_cache()
         if self._cache_time:
-            if self._cache.has_key(key):
+            if key in self._cache:
                 return self._cache[key][0]
         try:
             result = urllib2.urlopen(self._api_url % key).read()
@@ -43,7 +42,7 @@ class pyopenkeyval(object):
             return result
         except urllib2.HTTPError, e:
             if e.code == 404:
-                raise(KeyError(key))
+                raise KeyError(key)
             else:
                 raise
 
@@ -65,9 +64,9 @@ class pyopenkeyval(object):
     def store(self, key, value):
         """Stores `value` on `key`, returns a dict of the parsed JSON response."""
         self._remove_cache(key)
-        data = urllib.urlencode({'data': value})
+        data = "data=" + urllib.quote(value)
         result = urllib2.urlopen(self._api_url % key, data).read()
-        return json.loads(result)
+        return json.loads(result.decode())
 
     def clear_cache(self):
         """Removes all cached values regardless of expiration time."""
@@ -76,14 +75,14 @@ class pyopenkeyval(object):
     def key_info(self, key):
         """Fetch meta information regarding the specified `key`."""
         result = urllib2.urlopen((self._api_url % key) + '?key_info').read()
-        return json.loads(result)
+        return json.loads(result.decode())
 
     def _update_cache(self, key, value):
         if self._cache_time:
             self._cache[key] = (value, time.time())
 
     def _remove_cache(self, key):
-        if self._cache_time and self._cache.has_key(key):
+        if self._cache_time and key in self._cache:
             del self._cache[key]
 
     def _expire_cache(self):

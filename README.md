@@ -4,6 +4,10 @@
 retrieving key/value pairs via HTTP. *pyopenkeyval* is a Python interface to
 this service, presented as a dict-like object that accesses data on OpenKeyval.
 
+## Installing
+
+    $ sudo python setup.py install
+
 ## Examples
 
 ### Normal usage
@@ -25,6 +29,7 @@ cache the value if caching is activated.
          ...
 
 ### Deleting keys
+
 To delete a key, either set its value to '' or use the `del` keyword:
 
     del okv['example']
@@ -38,6 +43,16 @@ seconds to cache individual values.
     okv = pyopenkeyval(cache_time=60)
 
 To clear the cache completely at any time, call the `clear_cache()` method.
+
+## Python 3
+
+*pyopenkeyval* is since version 0.3 compatible with Python 3. It must, however,
+either be installed using `setup.py` (as described above) before use, or
+manually be converted using the `2to3` tool.
+
+Also note that values fetched will be returned as `bytes`. To use these as
+strings, call the `.decode()` method on them first. When setting values, either
+`str` or `bytes` can be used.
 
 ## Requirements
 
