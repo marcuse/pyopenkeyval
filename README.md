@@ -52,7 +52,7 @@ To use SSL, set the `ssl` argument to True.
     okv = pyopenkeyval(ssl=True)
 
 Note that the HTTP och HTTPS versions of OpenKeyval.org are completely
-separate. Values set in one can't be fetched fron the other.
+separate. Values set in one can't be fetched from the other.
 
 ## Python 3
 
