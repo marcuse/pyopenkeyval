@@ -15,7 +15,7 @@ try:
 except ImportError:
     import simplejson as json
 
-__version__ = '0.3'
+__version__ = '0.4'
 
 class pyopenkeyval(object):
     """A dict-like object that can read and write values to keys stored on OpenKeyval.org"""
@@ -24,12 +24,15 @@ class pyopenkeyval(object):
     _cache_time = None
     _cache = {}
 
-    def __init__(self, cache_time=None):
+    def __init__(self, cache_time=None, ssl=False):
         """Construct a new pyopenkeyval object.
 
         Keyword arguments:
-        cache_time -- number of seconds to cache fetched values (default None)"""
+        cache_time -- number of seconds to cache fetched values (default None)
+        ssl -- use secure connection (default False)"""
         self._cache_time = cache_time
+        if ssl:
+            self._api_url = 'https://secure.openkeyval.org/%s'
 
     def __getitem__(self, key):
         self._expire_cache()

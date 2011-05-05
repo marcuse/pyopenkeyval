@@ -44,6 +44,16 @@ seconds to cache individual values.
 
 To clear the cache completely at any time, call the `clear_cache()` method.
 
+### SSL support
+
+OpenKeyval.org also supports SSL over HTTPS for more secure transfer of data.
+To use SSL, set the `ssl` argument to True.
+
+    okv = pyopenkeyval(ssl=True)
+
+Note that the HTTP och HTTPS versions of OpenKeyval.org are completely
+separate. Values set in one can't be fetched fron the other.
+
 ## Python 3
 
 *pyopenkeyval* is since version 0.3 compatible with Python 3. It must, however,
