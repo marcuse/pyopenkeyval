@@ -1,5 +1,7 @@
 # pyopenkeyval
 
+[![PyPI version](https://badge.fury.io/py/pyopenkeyval.png)](http://badge.fury.io/py/pyopenkeyval)
+
 [OpenKeyval.org](http://openkeyval.org/) is a service for easily storing and
 retrieving key/value pairs via HTTP. *pyopenkeyval* is a Python interface to
 this service, presented as a dict-like object that accesses data on OpenKeyval.
