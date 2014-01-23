@@ -6,6 +6,7 @@ python:
         - "3.3"
 install:
         - pip install pylint
+        - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then 2to3 -w pyopenkeyval.py; fi
 script:
         - pylint -E pyopenkeyval.py
  
